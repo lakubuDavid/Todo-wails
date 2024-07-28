@@ -4,6 +4,8 @@ import {db} from '../models';
 
 export function AddTask(arg1:string):Promise<db.Todo>;
 
+export function CloseApp():Promise<void>;
+
 export function GetTasks():Promise<Array<db.Todo>>;
 
 export function Greet(arg1:string):Promise<string>;

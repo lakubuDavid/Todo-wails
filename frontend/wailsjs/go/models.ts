@@ -5,7 +5,7 @@ export namespace db {
 	    content: string;
 	    done: boolean;
 	    // Go type: sql
-	    creationdate: any;
+	    creationDate: any;
 	
 	    static createFrom(source: any = {}) {
 	        return new Todo(source);
@@ -16,7 +16,7 @@ export namespace db {
 	        this.id = source["id"];
 	        this.content = source["content"];
 	        this.done = source["done"];
-	        this.creationdate = this.convertValues(source["creationdate"], null);
+	        this.creationDate = this.convertValues(source["creationDate"], null);
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {

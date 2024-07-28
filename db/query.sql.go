@@ -10,7 +10,7 @@ import (
 )
 
 const addTask = `-- name: AddTask :one
-INSERT INTO todo (content,creationDate) VALUES (?1,datetime('now')) RETURNING id, content, done, creationdate
+INSERT INTO todo (content,creationDate) VALUES (?1,datetime('now')) RETURNING id, content, done, creationDate
 `
 
 func (q *Queries) AddTask(ctx context.Context, content string) (Todo, error) {
@@ -20,14 +20,14 @@ func (q *Queries) AddTask(ctx context.Context, content string) (Todo, error) {
 		&i.ID,
 		&i.Content,
 		&i.Done,
-		&i.Creationdate,
+		&i.CreationDate,
 	)
 	return i, err
 }
 
 const getTodos = `-- name: GetTodos :many
 SELECT
-  id, content, done, creationdate
+  id, content, done, creationDate
 FROM
   todo
 ORDER BY creationDate DESC
@@ -46,7 +46,7 @@ func (q *Queries) GetTodos(ctx context.Context) ([]Todo, error) {
 			&i.ID,
 			&i.Content,
 			&i.Done,
-			&i.Creationdate,
+			&i.CreationDate,
 		); err != nil {
 			return nil, err
 		}
@@ -62,7 +62,7 @@ func (q *Queries) GetTodos(ctx context.Context) ([]Todo, error) {
 }
 
 const removeTask = `-- name: RemoveTask :one
-DELETE FROM todo WHERE id = ?1 RETURNING id, content, done, creationdate
+DELETE FROM todo WHERE id = ?1 RETURNING id, content, done, creationDate
 `
 
 func (q *Queries) RemoveTask(ctx context.Context, id int64) (Todo, error) {
@@ -72,13 +72,13 @@ func (q *Queries) RemoveTask(ctx context.Context, id int64) (Todo, error) {
 		&i.ID,
 		&i.Content,
 		&i.Done,
-		&i.Creationdate,
+		&i.CreationDate,
 	)
 	return i, err
 }
 
 const updateTask = `-- name: UpdateTask :one
-UPDATE todo SET done = ?1 WHERE id = ?2 RETURNING id, content, done, creationdate
+UPDATE todo SET done = ?1 WHERE id = ?2 RETURNING id, content, done, creationDate
 `
 
 type UpdateTaskParams struct {
@@ -93,7 +93,7 @@ func (q *Queries) UpdateTask(ctx context.Context, arg UpdateTaskParams) (Todo, e
 		&i.ID,
 		&i.Content,
 		&i.Done,
-		&i.Creationdate,
+		&i.CreationDate,
 	)
 	return i, err
 }

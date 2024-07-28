@@ -9,13 +9,13 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <div class="card">
+  <div class="card" :class="done ? 'done' : ''">
     <span>{{ content }}</span>
     <div>
-      <span @click="controller.tickTask(id, !done)"
+      <span class="btn" @click="controller.tickTask(id, !done)"
         ><span v-if="done"> ✅ </span><span v-else>⬜️</span></span
       >
-      <span @click="controller.removeTask(id)"> 🗑️ </span>
+      <span class="btn" @click="controller.removeTask(id)"> 🗑️ </span>
     </div>
   </div>
 </template>
@@ -32,5 +32,11 @@ const props = defineProps<{
   max-width: 100%;
   height: 50px;
   background: #fff;
+}
+
+.card.done {
+  font-style: italic;
+  border-color: #0001;
+  color: #0009;
 }
 </style>

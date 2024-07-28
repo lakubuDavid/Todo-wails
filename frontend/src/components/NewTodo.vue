@@ -10,7 +10,6 @@
 </template>
 <script lang="ts" setup>
 import { ITodoController } from "../lib/TodoController";
-import { defineModel } from "vue";
 
 const props = defineProps<{
   controller: ITodoController;

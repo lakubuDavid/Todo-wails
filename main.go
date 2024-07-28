@@ -5,38 +5,61 @@ import (
 
 	"database/sql"
 	_ "embed"
-	_ "github.com/mattn/go-sqlite3"
 	"log"
+
+	_ "github.com/mattn/go-sqlite3"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/mac"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
 //go:embed all:frontend/dist
 var assets embed.FS
 
+//go:embed db/schema.sql
+var schema string
+
 func main() {
-	db, err := sql.Open("sqlite3", "sqlite.db")
+
+	db, err := sql.Open("sqlite3", "~/super-todo/todo.db?mode=rw")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	_, err = db.Exec(schema)
+	if err != nil {
+		log.Printf("Migration error : %s\n", err.Error())
+	}
+
 	defer db.Close()
 	// Create an instance of the app structure
 	app := NewApp(db)
 
 	// Create application with options
 	err = wails.Run(&options.App{
-		Title:  "todo",
-		Width:  500,
-		Height: 768,
+		Title:         "SuperTodo",
+		Width:         500,
+		Height:        768,
+		DisableResize: true,
+		Frameless:     true,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 1},
+		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 0},
 		OnStartup:        app.startup,
+		OnShutdown:       app.shutdown,
 		Bind: []interface{}{
 			app,
+		},
+		Windows: &windows.Options{
+			WebviewIsTransparent: true,
+			// WindowIsTranslucent:  true,
+		},
+		Mac: &mac.Options{
+			WebviewIsTransparent: true,
+			// WindowIsTranslucent:  true,
 		},
 	})
 

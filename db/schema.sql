@@ -7,4 +7,5 @@ CREATE TABLE todo (
 -- Dbmate schema migrations
 INSERT INTO "schema_migrations" (version) VALUES
   ('20240727074719'),
-  ('20240727121140');
+  ('20240727121140'),
+  ('20240727222320');

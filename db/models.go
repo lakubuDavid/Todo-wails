@@ -8,13 +8,9 @@ import (
 	"database/sql"
 )
 
-type SchemaMigrations struct {
-	Version string `json:"version"`
-}
-
 type Todo struct {
 	ID           int64        `json:"id"`
 	Content      string       `json:"content"`
 	Done         bool         `json:"done"`
-	Creationdate sql.NullTime `json:"creationdate"`
+	CreationDate sql.NullTime `json:"creationDate"`
 }

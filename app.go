@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	DB "todo/db"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -31,6 +33,11 @@ func NewApp(db *sql.DB) *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
+	runtime.WindowCenter(ctx)
+}
+
+func (a *App) shutdown(ctx context.Context) {
+
 }
 
 // Greet returns a greeting for the given name
@@ -60,4 +67,8 @@ func (a *App) RemoveTask(id int) DB.Todo {
 func (a *App) TickTask(done bool, id int) DB.Todo {
 	todo, _ := a.queries.UpdateTask(a.db_ctx, DB.UpdateTaskParams{IsDone: done, ID: int64(id)})
 	return todo
+}
+
+func (a *App) CloseApp() {
+	runtime.Quit((a.ctx))
 }

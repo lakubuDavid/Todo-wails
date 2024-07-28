@@ -20,6 +20,9 @@
       "@/*": [
         "src/*"
       ],
+      "@runtime/*": [
+        "wailsjs/runtime/*"
+      ],
       "@wailsjs/*": [
         "wailsjs/go/*"
       ]

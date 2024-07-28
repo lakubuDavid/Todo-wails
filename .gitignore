@@ -1,7 +1,10 @@
 build/bin
-node_modules
+build/*
+node_modules/
 frontend/dist
 
 sqlite.db
 
-.DS_Store
+*.DS_Store
+
+*.db

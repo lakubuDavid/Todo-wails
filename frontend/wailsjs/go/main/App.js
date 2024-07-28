@@ -6,6 +6,10 @@ export function AddTask(arg1) {
   return window['go']['main']['App']['AddTask'](arg1);
 }
 
+export function CloseApp() {
+  return window['go']['main']['App']['CloseApp']();
+}
+
 export function GetTasks() {
   return window['go']['main']['App']['GetTasks']();
 }
